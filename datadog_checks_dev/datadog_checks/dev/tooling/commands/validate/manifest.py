@@ -1,19 +1,19 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import os
 import json
+import os
 import uuid
 from collections import OrderedDict
 
 import click
 from six import string_types
 
-from ..console import CONTEXT_SETTINGS, abort, echo_failure, echo_info, echo_success, echo_warning
-from ...constants import get_root
-from ...utils import parse_version_parts
 from ....compat import JSONDecodeError
 from ....utils import basepath, file_exists, read_file, write_file
+from ...constants import get_root
+from ...utils import parse_version_parts
+from ..console import CONTEXT_SETTINGS, abort, echo_failure, echo_info, echo_success, echo_warning
 
 REQUIRED_ATTRIBUTES = {
     'categories',
@@ -29,7 +29,7 @@ REQUIRED_ATTRIBUTES = {
     'short_description',
     'support',
     'supported_os',
-    'type'
+    'type',
 }
 
 OPTIONAL_ATTRIBUTES = {
@@ -46,10 +46,7 @@ OPTIONAL_ATTRIBUTES = {
 ALL_ATTRIBUTES = REQUIRED_ATTRIBUTES | OPTIONAL_ATTRIBUTES
 
 
-@click.command(
-    context_settings=CONTEXT_SETTINGS,
-    short_help='Validate `manifest.json` files'
-)
+@click.command(context_settings=CONTEXT_SETTINGS, short_help='Validate `manifest.json` files')
 @click.option('--fix', is_flag=True, help='Attempt to fix errors')
 @click.option('--include-extras', '-i', is_flag=True, help='Include optional fields')
 def manifest(fix, include_extras):
@@ -141,9 +138,9 @@ def manifest(fix, include_extras):
                     decoded['manifest_version'] = correct_manifest_version
 
                     display_queue.append((echo_warning, output))
-                    display_queue.append((
-                        echo_success, '  new `manifest_version`: {}'.format(correct_manifest_version)
-                    ))
+                    display_queue.append(
+                        (echo_success, '  new `manifest_version`: {}'.format(correct_manifest_version))
+                    )
 
                     file_failures -= 1
                     file_fixed = True
@@ -178,9 +175,9 @@ def manifest(fix, include_extras):
                         decoded['manifest_version'] = correct_manifest_version
 
                         display_queue.append((echo_warning, output))
-                        display_queue.append((
-                            echo_success, '  new `manifest_version`: {}'.format(correct_manifest_version)
-                        ))
+                        display_queue.append(
+                            (echo_success, '  new `manifest_version`: {}'.format(correct_manifest_version))
+                        )
 
                         if 'version' in decoded:
                             del decoded['version']
@@ -276,9 +273,9 @@ def manifest(fix, include_extras):
                     unknown_systems = sorted(set(supported_os) - known_systems)
                     if unknown_systems:
                         file_failures += 1
-                        display_queue.append((
-                            echo_failure, '  unknown `supported_os`: {}'.format(', '.join(unknown_systems))
-                        ))
+                        display_queue.append(
+                            (echo_failure, '  unknown `supported_os`: {}'.format(', '.join(unknown_systems)))
+                        )
 
                 # public_title
                 public_title = decoded.get('public_title')
@@ -288,7 +285,7 @@ def manifest(fix, include_extras):
                 else:
                     title_start = 'Datadog-'
                     title_end = ' Integration'
-                    section_char_set = set(public_title[len(title_start):-len(title_end)].lower())
+                    section_char_set = set(public_title[len(title_start) : -len(title_end)].lower())
                     check_name_char_set = set(check_name.lower())
                     character_overlap = check_name_char_set & section_char_set
 
