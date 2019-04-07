@@ -52,11 +52,13 @@ class TestPatternFilter:
         whitelist = ['abc', 'def']
 
         assert pattern_filter(items, whitelist=whitelist, key=lambda item: item.name) == [
-            Item('abc'), Item('def'), Item('abcdef')
+            Item('abc'),
+            Item('def'),
+            Item('abcdef'),
         ]
 
 
-class TestLimiter():
+class TestLimiter:
     def test_no_uid(self):
         warnings = []
         limiter = Limiter("my_check", "names", 10, warning_func=warnings.append)
@@ -109,7 +111,7 @@ class TestLimiter():
         assert limiter.get_status() == (1, 10, False)
 
 
-class TestRounding():
+class TestRounding:
     def test_round_half_up(self):
         assert round_value(3.5) == 4.0
 
@@ -129,17 +131,11 @@ class TestContainers:
                 'metric_prefix': 'database',
                 'tags': ['test:database'],
                 'query': 'SELECT thing1, thing2 FROM TABLE',
-                'columns': [
-                    {'name': 'database.metric', 'type': 'count'},
-                    {'name': 'tablespace', 'type': 'tag'},
-                ],
+                'columns': [{'name': 'database.metric', 'type': 'count'}, {'name': 'tablespace', 'type': 'tag'}],
             },
             {
                 'tags': ['test:database'],
-                'columns': [
-                    {'name': 'tablespace', 'type': 'tag'},
-                    {'name': 'database.metric', 'type': 'count'},
-                ],
+                'columns': [{'name': 'tablespace', 'type': 'tag'}, {'name': 'database.metric', 'type': 'count'}],
                 'query': 'SELECT thing1, thing2 FROM TABLE',
                 'metric_prefix': 'database',
             },

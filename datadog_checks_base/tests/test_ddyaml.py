@@ -11,8 +11,8 @@ from datadog_checks.base.ddyaml import (
     monkey_patch_pyyaml,
     monkey_patch_pyyaml_reverse,
     safe_yaml_dump_all,
-    safe_yaml_load_all,
     safe_yaml_load,
+    safe_yaml_load_all,
     yDumper,
 )
 

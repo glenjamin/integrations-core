@@ -4,13 +4,13 @@
 
 import pytest
 
+from .utils import requires_windows
+
 try:
     from datadog_checks.checks.win.winpdh_base import PDHBaseCheck
     from datadog_test_libs.win.pdh_mocks import initialize_pdh_tests, pdh_mocks_fixture
 except ImportError:
     pass
-
-from .utils import requires_windows
 
 
 DEFAULT_INSTANCE = {'host': '.'}
