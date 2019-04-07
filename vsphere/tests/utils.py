@@ -1,13 +1,12 @@
 # (C) Datadog, Inc. 2010-2017
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-import os
 import json
+import os
 from datetime import datetime
 
-from mock import Mock, MagicMock
+from mock import MagicMock, Mock
 from pyVmomi import vim
-
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -16,6 +15,7 @@ class MockedMOR(Mock):
     """
     Helper, generate a mocked Managed Object Reference (MOR) from the given attributes.
     """
+
     def __init__(self, **kwargs):
         # Deserialize `spec`
         if 'spec' in kwargs:
@@ -139,8 +139,5 @@ def get_mocked_server():
     )
     # assemble the mocked server
     server_mock = MagicMock()
-    server_mock.configure_mock(**{
-        'RetrieveContent.return_value': content_mock,
-        'content': content_mock
-    })
+    server_mock.configure_mock(**{'RetrieveContent.return_value': content_mock, 'content': content_mock})
     return server_mock
