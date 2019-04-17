@@ -30,7 +30,7 @@ def dd_environment():
         with docker_run(
             compose_file,
             service_name=common.CASSANDRA_CONTAINER_NAME_2,
-            log_patterns=['All sessions completed']
+            log_patterns=['All sessions completed', 'Starting listening for CQL clients']
         ):
             subprocess.check_call([
                 "docker",
